@@ -3,15 +3,17 @@ import db
 import utils
 import os
 
-API_TOKEN = os.environ.get('BOT_API_TOKEN')
+API_TOKEN = os.environ.get('BOT_API_TOKEN') #получаем переменные из среды .env, в данном случае токен бота
 
 if not API_TOKEN:
     raise KeyError('Telegram bot token missed')
 
-bot = telebot.TeleBot(API_TOKEN)
+bot = telebot.TeleBot(API_TOKEN) #создаем бота
 
 
-@bot.message_handler(commands=['help', 'start'])
+@bot.message_handler(commands=['help', 'start']) # Обработчики сообщений определяют фильтры, которые должно пройти сообщение. 
+#Если сообщение проходит фильтр, вызывается декорированная функция и входящее сообщение передается в качестве аргумента.
+#Функция, оформленная обработчиком сообщений, может иметь произвольное имя, однако у нее должен быть только один параметр (сообщение).
 def send_welcome(message):
     msg = bot.send_message(message.chat.id, 'Данный бот следит за объявлениями по указанным ссылкам '
                                             'и присылает новые. '
