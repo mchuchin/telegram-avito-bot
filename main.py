@@ -15,9 +15,9 @@ bot = telebot.TeleBot(API_TOKEN) #создаем бота
 #Если сообщение проходит фильтр, вызывается декорированная функция и входящее сообщение передается в качестве аргумента.
 #Функция, оформленная обработчиком сообщений, может иметь произвольное имя, однако у нее должен быть только один параметр (сообщение).
 def send_welcome(message):
-    msg = bot.send_message(message.chat.id, 'Данный бот следит за объявлениями по указанным ссылкам '
+    msg = bot.send_message(message.chat.id, 'Данный бот следит за объявлениями по указанным ссылкам ' # chat.id возвращает сообщение в текущий чат
                                             'и присылает новые. '
-                                            '\nНажмите на значек "/" для просмотра доступных команд.')
+                                            '\nНажмите на значек "/" для просмотра доступных команд.') 
 
 
 # # # Adding search # # #
@@ -30,8 +30,8 @@ def add_search(message):
                      '(Автомобили с пробегом марки Toyota в Казани).\n'
                      'Обратите внимание на то, что используется мобильная версия Avito.\n',
                      disable_web_page_preview=True)
-    bot.send_message(message.chat.id, 'Если вы используете полноценную версию - добавьте `.m` в начале ссылки.',
-                     parse_mode='markdown')
+    bot.send_message(message.chat.id, 'Если вы используете полноценную версию - добавьте `m.` в начале ссылки.',
+                     parse_mode='markdown') # отображение как есть в тексте
     msg = bot.send_message(message.chat.id, 'Ожидаю ссылку...')
 
     bot.register_next_step_handler(msg, waiting_url_step)
@@ -41,10 +41,10 @@ def add_search(message):
 def waiting_url_step(message):
     search_url = message.text
     # На случай, если пользователь отравит такое сообщение: "https://avito.ru/kazan/avto/vaz бла бла"
-    search_url = search_url.split(' ')[0]
+    search_url = search_url.split(' ')[0] # сливает в одну строку
     search_url = search_url.lower()
 
-    if not utils.check_avito_url(search_url):
+    if not utils.check_avito_url(search_url): # если не true
         msg = bot.send_message(message.chat.id, 'Неккоректная ссылка.')
         return
 
