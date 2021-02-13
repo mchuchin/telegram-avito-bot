@@ -1,7 +1,9 @@
 def check_avito_url(avito_url):
     from urllib.parse import urlparse
-    url_parts = urlparse(avito_url)
-    return url_parts.netloc == 'm.avito.ru' and len(url_parts.path) > 1
+    url_parts = urlparse(avito_url) # ункция urlparse() модуля urllib.parse разбирает URL-адрес urlstring на
+#*ШЕСТЬ компонентов и возвращает именованный кортеж из 6 (шести) элементов, что соответствует старой структуре URL:
+#scheme://netloc/path;parameters?Query#fragment. 
+    return url_parts.netloc == 'm.avito.ru' and len(url_parts.path) > 1 # возвращаем true
 
 
 def get_img_file_by_url(url):
